@@ -1,0 +1,10 @@
+{application,products_ex,
+             [{applications,[kernel,stdlib,elixir,logger,postgrex,ecto_sql,
+                             ex_money_sql]},
+              {description,"products_ex"},
+              {modules,['Elixir.Products','Elixir.Products.Application',
+                        'Elixir.Products.Product','Elixir.Products.Repo',
+                        'Elixir.Products.RepoCase']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.Products.Application',[]}}]}.

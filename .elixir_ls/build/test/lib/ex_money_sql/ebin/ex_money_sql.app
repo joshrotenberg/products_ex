@@ -1,0 +1,11 @@
+{application,ex_money_sql,
+             [{applications,[kernel,stdlib,elixir,logger,jason,postgrex,
+                             ecto_sql,ex_money]},
+              {description,"Money functions for the serialization a money data type."},
+              {modules,['Elixir.Mix.Tasks.Money.Gen.Postgres.AggregateFunctions',
+                        'Elixir.Mix.Tasks.Money.Gen.Postgres.MoneyWithCurrencyMigration',
+                        'Elixir.Money.DDL','Elixir.Money.Ecto.Composite.Type',
+                        'Elixir.Money.Ecto.Map.Type','Elixir.Money.Migration',
+                        'Elixir.Money.Sql']},
+              {registered,[]},
+              {vsn,"1.3.0"}]}.

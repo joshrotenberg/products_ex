@@ -1,0 +1,12 @@
+POST http://localhost:4001/product HTTP/1.1
+Content-type: application/json
+
+{
+    "name": "qwwqee",
+    "price": 20,
+}
+
+### 
+
+GET http://localhost:4001/product/10 HTTP/1.1
+
