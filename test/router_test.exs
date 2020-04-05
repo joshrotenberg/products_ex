@@ -18,7 +18,7 @@ defmodule Products.RouterTest do
       resp = Jason.decode!(conn.resp_body)
 
       assert conn.state == :sent
-      assert conn.status == 200
+      assert conn.status == 201
       assert resp["name"] == product.name
       assert resp["price"] == product.price
     end
@@ -197,6 +197,19 @@ defmodule Products.RouterTest do
       assert resp["id"] == product.id
       assert resp["name"] == product.name
       assert resp["price"] == product.price
+    end
+
+    test "delete a product that doesn't exist" do
+      missing_id = 500
+
+      conn =
+        conn(:delete, "/product/#{missing_id}")
+        |> Products.Router.call(@opts)
+
+      resp = Jason.decode!(conn.resp_body)
+      assert conn.state == :sent
+      assert conn.status == 404
+      assert resp["error"] == "No product found for id #{missing_id}"
     end
   end
 end

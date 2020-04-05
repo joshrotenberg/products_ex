@@ -15,7 +15,7 @@ defmodule Products.Router do
   post "/product" do
     {status, body} =
       case create_product(conn.body_params) do
-        {:ok, product} -> {200, product}
+        {:ok, product} -> {201, product}
         {:error, changeset} -> {400, changeset |> format_errors()}
       end
 
@@ -46,6 +46,7 @@ defmodule Products.Router do
     {status, body} =
       case delete_product(id) do
         {:ok, product} -> {200, product}
+        nil -> {404, %{error: "No product found for id #{id}"}}
         {:error, error} -> {400, error}
       end
 
@@ -82,8 +83,19 @@ defmodule Products.Router do
   end
 
   defp delete_product(id) do
-    product = Products.Product |> Products.Repo.get(id)
-    Products.Repo.delete(product)
+    try do
+      case Products.Product |> Products.Repo.get(id) do
+        nil ->
+          nil
+
+        product ->
+          Products.Repo.delete(product)
+      end
+    rescue
+      e in Ecto.Query.CastError ->
+        Logger.warn(e.message)
+        nil
+    end
   end
 
   def format_errors(changeset) do
